@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,16 +17,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class Window extends JFrame implements ActionListener  {
-	private final int width = 320;
-	private final int height = 350;
-	private final ImageIcon windowIcon = new ImageIcon("icon.png");
-	private float firstInp ;
-	private float SecInp ;
-	private String firstInpStr;
-	private String SecInpStr;
+private final int width = 320;
+private final int height = 350;
+private final ImageIcon windowIcon = new ImageIcon("icon.png");
+private float firstInp ;
+private float SecInp ;
+private String firstInpStr;
+private String SecInpStr;
 	private String Operation;
 	JButton Nbuttons[] = new JButton[12];
-	JButton OPButtons[] = new JButton[6];
+	JButton OPButtons[] = new JButton[8];
 
 	int topWidth = this.width;
 	int topHeight = (int)(0.15*this.height);
@@ -64,15 +65,15 @@ public class Window extends JFrame implements ActionListener  {
 	
 	private void createBottom() {
 		JPanel Bottom = new JPanel();
-		Bottom.setBackground(Color.PINK);
-		Bottom.setBounds(0,this.centerHeiht,this.bottomWidth,this.bottomHeight);
+		Bottom.setBackground(new Color(66,66,66));
+		Bottom.setBounds(0,this.centerHeiht+20,this.bottomWidth,this.bottomHeight);
 		Bottom.setLayout(null);
 		//creating the left/right side 
 		//1:left side  ?=[numbers]
 		
 		JPanel BottomLeft = new JPanel();
 		BottomLeft.setLayout(new GridLayout(3,3,10,30));
-		BottomLeft.setBounds(0,0,(int)(this.bottomWidth*0.7),this.bottomHeight);
+		BottomLeft.setBounds(10,5,(int)(this.bottomWidth*0.65),this.bottomHeight-10);
 		BottomLeft.setBackground(new Color(66,66,66));
 		//list of buttons 
 		for(int i=0;i<10;i++) {
@@ -81,8 +82,9 @@ public class Window extends JFrame implements ActionListener  {
 			numberButton.addActionListener(this);
 			numberButton.setBackground(new Color(55,55,55));
 			numberButton.setFocusable(false);
-			numberButton.setForeground(Color.white);
-			
+			numberButton.setForeground(new Color(200,200,200));
+			numberButton.setMargin(new Insets(0,0,0,0));
+
 			//numberButton.setSize(40,40);
 		//	numberButton.setMaximumSize(new Dimension(23,23));
 			Nbuttons[i]=numberButton;
@@ -111,7 +113,7 @@ public class Window extends JFrame implements ActionListener  {
 		JPanel BottomRight = new JPanel();
 		BottomRight.setBackground(new Color(66,66,66));
 
-		BottomRight.setLayout(new GridLayout(3,6,0,0));
+		BottomRight.setLayout(new GridLayout(4,2,0,0));
 		BottomRight.setBounds((int)(this.bottomWidth*0.7),0,(int)(this.bottomWidth*0.3),this.bottomHeight);
 
 		//buttons 
@@ -120,7 +122,9 @@ public class Window extends JFrame implements ActionListener  {
 		JButton MULutton  = new JButton("*");
 		JButton ADButton  = new JButton("+");
 		JButton SBButton  = new JButton("-");
-		JButton EXButton  = new JButton("EXP");
+		JButton EXButton  = new JButton("exp");
+		JButton LNButton  = new JButton("ln");
+		JButton RTButton  = new JButton("root");
 		
 		this.OPButtons[0] = ACButton;
 		this.OPButtons[1] = DIVButton;
@@ -128,6 +132,8 @@ public class Window extends JFrame implements ActionListener  {
 		this.OPButtons[3] = ADButton;
 		this.OPButtons[4] = SBButton;
 		this.OPButtons[5] = EXButton;
+		this.OPButtons[6] = LNButton;
+		this.OPButtons[7] = RTButton;
 		
 		
 		
@@ -136,14 +142,15 @@ public class Window extends JFrame implements ActionListener  {
 //		int x_pos =0;
 //		int y_pos=0;
 //		boolean t = true ;
-		for(int i=0;i<6;i++) {
+		for(int i=0;i<8;i++) {
 			OPButtons[i].setFont(new Font(null,Font.PLAIN,10));
 			OPButtons[i].setFocusable(false);
 				
 			OPButtons[i].setBackground(new Color(55,55,55));
 			OPButtons[i].setForeground(new Color(200,200,200));
 			OPButtons[i].addActionListener(this);
-			
+			OPButtons[i].setFont(new Font("Arial", Font.PLAIN, 15));	
+			OPButtons[i].setMargin(new Insets(0,0,0,0));
 		}
 		
 
@@ -154,6 +161,8 @@ public class Window extends JFrame implements ActionListener  {
 		BottomRight.add(ADButton);
 		BottomRight.add(SBButton);
 		BottomRight.add(EXButton);
+		BottomRight.add(RTButton);
+		BottomRight.add(LNButton);
 		
 		//start adding to the bottom panel
 				
@@ -186,20 +195,24 @@ public class Window extends JFrame implements ActionListener  {
 		for(int i=0;i<10;i++) {
 			if(e.getSource()==this.Nbuttons[i]) {
 				System.out.println(i);
-				String curText = this.field.getText();
+				//String curText = this.field.getText();
 				
 				if(this.Operation==null ) {
-				this.firstInpStr+=i;
-				this.firstInp=Integer.parseInt(this.firstInpStr);
+				//this.firstInpStr+=i;
+			//	this.firstInp=Float.parseFloat(this.firstInpStr);
 				
-				curText=this.firstInpStr;
+				this.firstInpStr=this.field.getText().concat(Integer.toString(i));
+				System.out.println(this.firstInpStr);
+				this.field.setText(this.firstInpStr);
 				}else {
-					this.SecInpStr+=Integer.toString(i);
-					curText+=Integer.toString(i);
-					this.SecInp=Integer.parseInt(this.SecInpStr);
-				}
-				this.field.setText(curText);
+					//this.SecInpStr+=Integer.toString(i);
+					//curText+=Integer.toString(i);
+					this.SecInpStr=this.SecInpStr.concat(Integer.toString(i));
+					System.out.println(this.SecInpStr);
+					//this.SecInp=Float.parseFloat(this.SecInpStr);
+					this.field.setText(this.field.getText().concat(this.SecInpStr));
 
+				}
 			}
 		}
 		if(e.getSource()==Nbuttons[11]) {
@@ -233,6 +246,10 @@ public class Window extends JFrame implements ActionListener  {
 		}
 		
 		
+		if(e.getSource()==Nbuttons[10]) {
+				this.field.setText(this.field.getText().concat("."));
+
+		}
 		if(e.getSource()==this.OPButtons[3]) {
 			System.out.println("add");
 			this.Operation="add";
@@ -254,18 +271,34 @@ public class Window extends JFrame implements ActionListener  {
 			System.out.println("exp");
 			this.Operation="exp";
 			String curText = this.field.getText();
-			curText +="exp";
+			this.firstInpStr=this.field.getText();
+			curText ="exp("+this.field.getText()+")";
 			this.field.setText(curText);
 		}
 		
-		
-		if(e.getSource()==this.OPButtons[5]) {
-			this.Operation="exp";
-			
+		if(e.getSource()==this.OPButtons[6]) {
+			System.out.println("ln");
+			this.Operation="ln";
+			String curText = this.field.getText();
+			this.firstInpStr=this.field.getText();
+			curText ="ln("+this.field.getText()+")";
+			this.field.setText(curText);
 		}
+		
+		if(e.getSource()==this.OPButtons[7]) {
+			System.out.println("root");
+			this.Operation="root";
+			String curText = this.field.getText();
+			this.firstInpStr=this.field.getText();
+			curText ="root("+this.field.getText()+")";
+			this.field.setText(curText);
+		}
+		
 	}
 	private float calculate() {
 		System.out.println(this.Operation);
+		this.firstInp=Float.parseFloat(this.firstInpStr);
+		if(!this.SecInpStr.equals(""))this.SecInp=Float.parseFloat(this.SecInpStr);
 		float res = 0;
 		if(this.Operation.equals("div")) {
 			res = this.firstInp/this.SecInp;
@@ -282,9 +315,29 @@ public class Window extends JFrame implements ActionListener  {
 			res = this.firstInp-this.SecInp;
 		}
 		if(this.Operation.equals("exp")) {
-			res = (float) Math.exp(this.firstInp);
+			System.out.println("start exp -----------");
+				this.firstInp = Float.parseFloat(this.firstInpStr);
+				res = (float) Math.exp(this.firstInp);
+			
+			
 		}
-		this.firstInp=0f;
+		if(this.Operation.equals("ln")) {
+			System.out.println("start ln -----------");
+				this.firstInp = Float.parseFloat(this.firstInpStr);
+				res = (float) Math.log(this.firstInp);
+			
+			
+			
+		}
+		if(this.Operation.equals("root")) {
+			System.out.println("start root -----------");
+				this.firstInp = Float.parseFloat(this.firstInpStr);
+				res = (float) Math.sqrt(this.firstInp);
+			
+			
+			
+		}
+		this.firstInp=res;
 		this.SecInp=0f;
 		this.Operation=null;
 		this.SecInpStr="";
