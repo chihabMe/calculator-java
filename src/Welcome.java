@@ -23,7 +23,7 @@ public class Welcome  implements ActionListener{
 	 window.setLayout(null);
 	 window.getContentPane().setBackground(new Color(66,66,66));
 	 start.addActionListener(this);
-	 start.setBackground(new Color(22,22,22));
+	 start.setBackground(new Color(42,32,32));
 	 start.setForeground(new Color(200,200,200));
 	 start.setFocusable(false);
 	 this.linux.setIcon(linuxIcon);

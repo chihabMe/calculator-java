@@ -45,6 +45,7 @@ private String SecInpStr;
 		this.SecInp=0;
 		this.firstInpStr="";
 		this.SecInpStr="";
+		this.setLocationRelativeTo(null);
 		this.field.setHorizontalAlignment(JLabel.CENTER);
 		this.field.setBackground(new Color(230,230,230));
 		this.setTitle("java sucks ! ");
@@ -297,7 +298,7 @@ private String SecInpStr;
 	}
 	private float calculate() {
 		System.out.println(this.Operation);
-		this.firstInp=Float.parseFloat(this.firstInpStr);
+		if(!this.firstInpStr.equals(""))this.firstInp=Float.parseFloat(this.firstInpStr);
 		if(!this.SecInpStr.equals(""))this.SecInp=Float.parseFloat(this.SecInpStr);
 		float res = 0;
 		if(this.Operation.equals("div")) {
@@ -337,6 +338,7 @@ private String SecInpStr;
 			
 			
 		}
+		this.firstInpStr=Float.toString(res);
 		this.firstInp=res;
 		this.SecInp=0f;
 		this.Operation=null;
