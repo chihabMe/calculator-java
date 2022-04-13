@@ -12,12 +12,15 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class Window extends JFrame implements ActionListener  {
 	private final int width = 320;
 	private final int height = 350;
 	private float firstInp ;
 	private float SecInp ;
+	private String firstInpStr;
+	private String SecInpStr;
 	private String Operation;
 	JButton Nbuttons[] = new JButton[12];
 	JButton OPButtons[] = new JButton[6];
@@ -33,9 +36,12 @@ public class Window extends JFrame implements ActionListener  {
 	private JPanel BottomLeft = new JPanel();
 	private JPanel BottomRight = new JPanel();
 	
+	private JTextField field = new JTextField();
 	Window(){
 		this.firstInp=0;
 		this.SecInp=0;
+		this.firstInpStr="";
+		this.SecInpStr="";
 		this.setTitle("java sucks ! ");
 		this.getContentPane().setBackground(new Color(66,66,66));
 		this.setSize(width,height);
@@ -159,8 +165,11 @@ public class Window extends JFrame implements ActionListener  {
 		this.add(Center);
 	}
 	private void createTop() {
+		
 		JPanel Top = new JPanel();
-
+		this.field.setPreferredSize(new Dimension(this.topWidth,this.topHeight));
+		this.field.setFont(new Font(null,Font.BOLD,20));
+		Top.add(field);
 		Top.setBounds(0,0,this.topWidth,this.topHeight);
 		this.add(Top);
 	}
@@ -171,35 +180,60 @@ public class Window extends JFrame implements ActionListener  {
 		for(int i=0;i<10;i++) {
 			if(e.getSource()==this.Nbuttons[i]) {
 				System.out.println(i);
-				if(this.Operation==null) {
-				this.firstInp=i;
+				String curText = this.field.getText();
+				
+				if(this.Operation==null ) {
+				this.firstInpStr+=i;
+				this.firstInp=Integer.parseInt(this.firstInpStr);
+				
+				curText=this.firstInpStr;
 				}else {
-					this.SecInp=i;
+					this.SecInpStr+=Integer.toString(i);
+					curText+=Integer.toString(i);
+					this.SecInp=Integer.parseInt(this.SecInpStr);
 				}
+				this.field.setText(curText);
+
 			}
 		}
 		if(e.getSource()==Nbuttons[11]) {
-		System.out.println(calculate());	
+		String res = Float.toString(calculate());
+		System.out.println(res);
+		this.field.setText(res);
 		}
 		if(e.getSource()==this.OPButtons[0]) {
 			System.out.println("clear");
 			this.firstInp=0;
 			this.SecInp=0;
+			this.firstInpStr="";
+			this.SecInpStr="";
 			this.Operation=null;
+			this.field.setText("");
 		}
 		if(e.getSource()==this.OPButtons[1]) {
 			System.out.println("div");
 			this.Operation="div";
+			String curText = this.field.getText();
+			curText +="/";
+			this.field.setText(curText);
 		}
 		if(e.getSource()==this.OPButtons[2]) {
 			System.out.println("mul");
 			this.Operation="mul";
+			
+			String curText = this.field.getText();
+			curText +="*";
+			this.field.setText(curText);
 		}
 		
 		
 		if(e.getSource()==this.OPButtons[3]) {
 			System.out.println("add");
 			this.Operation="add";
+			
+			String curText = this.field.getText();
+			curText +="+";
+			this.field.setText(curText);
 		}
 		
 		if(e.getSource()==this.OPButtons[4]) {
@@ -209,6 +243,9 @@ public class Window extends JFrame implements ActionListener  {
 		if(e.getSource()==this.OPButtons[5]) {
 			System.out.println("exp");
 			this.Operation="exp";
+			String curText = this.field.getText();
+			curText +="exp";
+			this.field.setText(curText);
 		}
 		
 		
@@ -237,9 +274,11 @@ public class Window extends JFrame implements ActionListener  {
 		if(this.Operation.equals("exp")) {
 			res = (float) Math.exp(this.firstInp);
 		}
-		this.firstInp=0f;
+	//	this.firstInp=0f;
 		this.SecInp=0f;
 		this.Operation=null;
+		this.SecInpStr="";
+		this.firstInpStr="";
 		return res;
 	}
 
