@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,6 +18,7 @@ import javax.swing.JTextField;
 public class Window extends JFrame implements ActionListener  {
 	private final int width = 320;
 	private final int height = 350;
+	private final ImageIcon windowIcon = new ImageIcon("icon.png");
 	private float firstInp ;
 	private float SecInp ;
 	private String firstInpStr;
@@ -42,11 +44,15 @@ public class Window extends JFrame implements ActionListener  {
 		this.SecInp=0;
 		this.firstInpStr="";
 		this.SecInpStr="";
+		this.field.setHorizontalAlignment(JLabel.CENTER);
+		this.field.setBackground(new Color(230,230,230));
 		this.setTitle("java sucks ! ");
+		
 		this.getContentPane().setBackground(new Color(66,66,66));
 		this.setSize(width,height);
 		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 		this.setResizable(false);
+		this.setIconImage(windowIcon.getImage());
 		//start adding the panels 
 		createTop();
 		//createCenter();
@@ -239,6 +245,10 @@ public class Window extends JFrame implements ActionListener  {
 		if(e.getSource()==this.OPButtons[4]) {
 			System.out.println("sub");
 			this.Operation="sub";
+			
+			String curText = this.field.getText();
+			curText +="-";
+			this.field.setText(curText);
 		}
 		if(e.getSource()==this.OPButtons[5]) {
 			System.out.println("exp");
@@ -274,7 +284,7 @@ public class Window extends JFrame implements ActionListener  {
 		if(this.Operation.equals("exp")) {
 			res = (float) Math.exp(this.firstInp);
 		}
-	//	this.firstInp=0f;
+		this.firstInp=0f;
 		this.SecInp=0f;
 		this.Operation=null;
 		this.SecInpStr="";
