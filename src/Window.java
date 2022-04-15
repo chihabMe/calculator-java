@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,336 +14,421 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
-public class Window extends JFrame implements ActionListener  {
-private final int width = 320;
-private final int height = 350;
-private final ImageIcon windowIcon = new ImageIcon("icon.png");
-private float firstInp ;
-private float SecInp ;
-private String firstInpStr;
-private String SecInpStr;
-	private String Operation;
-	JButton Nbuttons[] = new JButton[12];
-	JButton OPButtons[] = new JButton[8];
-
-	int topWidth = this.width;
-	int topHeight = (int)(0.15*this.height);
-	int centerWidth = this.width;
-	int centerHeiht = (int)(0.15*this.height);
+public class Window extends JFrame  implements ActionListener  {
+	private JTextField textField;
+	// the main panel 
+	JPanel panel ;
+	//my buttons 
+	//numbers 
+	JButton[] Nbuttons = new JButton[10];
+	//operations 
+	JButton btnNewButton_P;
+	JButton btnNewButton_Po_Ni;
+	JButton btnNewButton_Pl;
+	JButton btnNewButton_Mn ;
+	JButton btnNewButton_Ml;
+	JButton btnNewButton_Di;
+	JButton btnNewButton_Eq;
+	JButton btnNewButton_Sq;
+	JButton btnNewButton_Rt;
+	JButton btnNewButton_Ln;
+	JButton btnNewButton_Ex;
+	JButton btnNewButton_Dl ;
+	JButton btnNewButton_Ac;
+	//numbers
+	JButton btnNewButton_4 ;
 	
-	int bottomWidth = this.width;
-	int bottomHeight = (int)(0.7*this.height);
+	JButton btnNewButton_1;
+	JButton btnNewButton_0;
+	JButton btnNewButton_7 ;
+	JButton btnNewButton_8 ;
+	JButton btnNewButton_5 ;
+	JButton btnNewButton_2 ;
+	JButton btnNewButton_9 ;
+	JButton btnNewButton_6 ;
+	JButton btnNewButton_3 ;
+	//some variables for calculation
+	String operation=null;
+	float firInp = 0f;
+	float secInput =0f;
+	//constructer
 	
-	private JPanel BottomLeft = new JPanel();
-	private JPanel BottomRight = new JPanel();
-	
-	private JTextField field = new JTextField();
 	Window(){
-		this.firstInp=0;
-		this.SecInp=0;
-		this.firstInpStr="";
-		this.SecInpStr="";
-		this.setLocationRelativeTo(null);
-		this.field.setHorizontalAlignment(JLabel.CENTER);
-		this.field.setBackground(new Color(230,230,230));
-		this.setTitle("java sucks ! ");
-		
-		this.getContentPane().setBackground(new Color(66,66,66));
-		this.setSize(width,height);
-		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+		this.getContentPane().setBackground(new Color(44, 44, 44)	);
+		this.setBackground(new Color(44, 44, 44)	);
 		this.setResizable(false);
-		this.setIconImage(windowIcon.getImage());
-		//start adding the panels 
-		createTop();
-		//createCenter();
-		createBottom();
-		this.setLayout(null);
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+		this.getContentPane().setLayout(null);
+		this.setBounds(100, 100, 300, 350);
+		//creaing the text field
+		createThePanel();
+
+		createTheTextField();
+		//creating the buttons 
+		createButtons();
+		//adding + acreating the panel 
+		
 		this.setVisible(true);
-	
-	}
-	
-	private void createBottom() {
-		JPanel Bottom = new JPanel();
-		Bottom.setBackground(new Color(66,66,66));
-		Bottom.setBounds(0,this.centerHeiht+20,this.bottomWidth,this.bottomHeight);
-		Bottom.setLayout(null);
-		//creating the left/right side 
-		//1:left side  ?=[numbers]
 		
-		JPanel BottomLeft = new JPanel();
-		BottomLeft.setLayout(new GridLayout(3,3,10,30));
-		BottomLeft.setBounds(10,5,(int)(this.bottomWidth*0.65),this.bottomHeight-10);
-		BottomLeft.setBackground(new Color(66,66,66));
-		//list of buttons 
+		
+	}
+	public void createThePanel() {
+		
+		this.panel = new JPanel();
+		panel.setBorder(null);
+		panel.setBackground(new Color(44, 44, 44)	);
+		panel.setBounds(12, 63, 276, 259);
+		panel.setLayout(null);
+		this.getContentPane().add(panel);
+
+	}
+
+		void createButtons() {
+			
+		//start creating the buttons + adding them to the list
+			JButton btnNewButton_4 = new JButton("4");
+			btnNewButton_4.setBounds(0, 139, 46, 27);
+			
+			JButton btnNewButton_1 = new JButton("1");
+			btnNewButton_1.setBounds(0, 178, 46, 27);
+			
+			JButton btnNewButton_0 = new JButton("0");
+			btnNewButton_0.setBounds(0, 217, 46, 27);
+			
+			JButton btnNewButton_7 = new JButton("7");
+			btnNewButton_7.setBounds(0, 100, 46, 27);
+			
+			JButton btnNewButton_8 = new JButton("8");
+			btnNewButton_8.setBounds(58, 100, 46, 27);
+			
+			JButton btnNewButton_5 = new JButton("5");
+			btnNewButton_5.setBounds(58, 139, 46, 27);
+			
+			JButton btnNewButton_2 = new JButton("2");
+			btnNewButton_2.setBounds(58, 178, 46, 27);
+
+			
+			JButton btnNewButton_9 = new JButton("9");
+			btnNewButton_9.setBounds(116, 100, 46, 27);
+			
+			JButton btnNewButton_6 = new JButton("6");
+			btnNewButton_6.setBounds(116, 139, 46, 27);
+			
+			JButton btnNewButton_3 = new JButton("3");
+			btnNewButton_3.setBounds(116, 178, 46, 27)
+		
+;
+	//start adding the buttons to the array list 
+		Nbuttons[0]=btnNewButton_0;
+		Nbuttons[1]=btnNewButton_1;
+		Nbuttons[2]=btnNewButton_2;
+		Nbuttons[3]=btnNewButton_3;
+		Nbuttons[4]=btnNewButton_4;
+		Nbuttons[5]=btnNewButton_5;
+		Nbuttons[6]=btnNewButton_6;
+		Nbuttons[7]=btnNewButton_7;
+		Nbuttons[8]=btnNewButton_8;
+		Nbuttons[9]=btnNewButton_9;
+		//start adding the buttons to the panel + adding some styles
 		for(int i=0;i<10;i++) {
-			String buttonName = " "+i;
-			JButton numberButton = new JButton(buttonName);
-			numberButton.addActionListener(this);
-			numberButton.setBackground(new Color(55,55,55));
-			numberButton.setFocusable(false);
-			numberButton.setForeground(new Color(200,200,200));
-			numberButton.setMargin(new Insets(0,0,0,0));
+			Nbuttons[i].setMargin(new Insets(0, 0, 0, 0));
+			Nbuttons[i].setBackground(new Color(66, 66, 66));
+			Nbuttons[i].setForeground(UIManager.getColor("Button.background"));
+			Nbuttons[i].addActionListener(this);
+			
+			this.panel.add(Nbuttons[i]);
 
-			//numberButton.setSize(40,40);
-		//	numberButton.setMaximumSize(new Dimension(23,23));
-			Nbuttons[i]=numberButton;
-			BottomLeft.add(numberButton);
 		}
-		//adding = and .
-		
-		JButton PButton = new JButton(".");
-		Nbuttons[10]=PButton;
-		
-		JButton EqButton = new JButton("=");
-		Nbuttons[11]=EqButton;
-		PButton.setBackground(new Color(55,55,55));
-		PButton.addActionListener(this);
-		PButton.setFocusable(false);
-		PButton.setForeground(Color.white);
-		EqButton.setBackground(new Color(55,55,55));
-		EqButton.setFocusable(false);
-		EqButton.addActionListener(this);
-		EqButton.setForeground(Color.white);
-		BottomLeft.add(PButton);
-		BottomLeft.add(EqButton);
-		
-		
-		//2:right side ?=[operations]
-		JPanel BottomRight = new JPanel();
-		BottomRight.setBackground(new Color(66,66,66));
-
-		BottomRight.setLayout(new GridLayout(4,2,0,0));
-		BottomRight.setBounds((int)(this.bottomWidth*0.7),0,(int)(this.bottomWidth*0.3),this.bottomHeight);
-
-		//buttons 
-		JButton ACButton  = new JButton("AC");
-		JButton DIVButton  = new JButton("/");
-		JButton MULutton  = new JButton("*");
-		JButton ADButton  = new JButton("+");
-		JButton SBButton  = new JButton("-");
-		JButton EXButton  = new JButton("exp");
-		JButton LNButton  = new JButton("ln");
-		JButton RTButton  = new JButton("root");
-		
-		this.OPButtons[0] = ACButton;
-		this.OPButtons[1] = DIVButton;
-		this.OPButtons[2] = MULutton;
-		this.OPButtons[3] = ADButton;
-		this.OPButtons[4] = SBButton;
-		this.OPButtons[5] = EXButton;
-		this.OPButtons[6] = LNButton;
-		this.OPButtons[7] = RTButton;
-		
-		
-		
-		//ACButton.setSize(new Dimension(50,50));
-//		ACButton.setFocusable(false);
-//		int x_pos =0;
-//		int y_pos=0;
-//		boolean t = true ;
-		for(int i=0;i<8;i++) {
-			OPButtons[i].setFont(new Font(null,Font.PLAIN,10));
-			OPButtons[i].setFocusable(false);
-				
-			OPButtons[i].setBackground(new Color(55,55,55));
-			OPButtons[i].setForeground(new Color(200,200,200));
-			OPButtons[i].addActionListener(this);
-			OPButtons[i].setFont(new Font("Arial", Font.PLAIN, 15));	
-			OPButtons[i].setMargin(new Insets(0,0,0,0));
-		}
-		
-
-		
-		BottomRight.add(ACButton);
-		BottomRight.add(DIVButton);
-		BottomRight.add(MULutton);
-		BottomRight.add(ADButton);
-		BottomRight.add(SBButton);
-		BottomRight.add(EXButton);
-		BottomRight.add(RTButton);
-		BottomRight.add(LNButton);
-		
-		//start adding to the bottom panel
-				
-		Bottom.add(BottomRight);		
-		Bottom.add(BottomLeft);
-		
-		//
-		this.add(Bottom);
-	}
+		//start creating the [.] / [+/-] ... 
+		btnNewButton_P = new JButton(".");
+		btnNewButton_P.setBounds(58, 217, 46, 27);
+		btnNewButton_P.setBackground(new Color(66, 66, 66));
+		btnNewButton_P.setForeground(UIManager.getColor("Button.background"));
+		btnNewButton_P.addActionListener(this);
+		this.panel.add(btnNewButton_P);
 	
-	private void createCenter() {
-		JPanel Center = new JPanel();
-		Center.setBackground(Color.gray);
-		Center.setBounds(0,this.topHeight,this.centerWidth,this.centerHeiht);
-		this.add(Center);
-	}
-	private void createTop() {
+
 		
-		JPanel Top = new JPanel();
-		this.field.setPreferredSize(new Dimension(this.topWidth,this.topHeight));
-		this.field.setFont(new Font(null,Font.BOLD,20));
-		Top.add(field);
-		Top.setBounds(0,0,this.topWidth,this.topHeight);
-		this.add(Top);
+		btnNewButton_Po_Ni = new JButton("+/-");
+		btnNewButton_Po_Ni.setMargin(new Insets(0, 0, 0, 0));
+		btnNewButton_Po_Ni.setForeground(UIManager.getColor("Button.background"));
+		btnNewButton_Po_Ni.setBackground(new Color(66, 66, 66));
+		btnNewButton_Po_Ni.setBounds(116, 217, 46, 27);
+		btnNewButton_Po_Ni.addActionListener(this);
+		panel.add(btnNewButton_Po_Ni);
+
+		btnNewButton_Pl = new JButton("+");
+		btnNewButton_Pl.setMargin(new Insets(0, 0, 0, 0));
+		btnNewButton_Pl.setForeground(UIManager.getColor("Button.background"));
+		btnNewButton_Pl.setBackground(new Color(66, 66, 66));
+		btnNewButton_Pl.setBounds(174, 217, 46, 27);
+		btnNewButton_Pl.addActionListener(this);
+		panel.add(btnNewButton_Pl);
+
+		btnNewButton_Mn = new JButton("-");
+		btnNewButton_Mn.setMargin(new Insets(0, 0, 0, 0));
+		btnNewButton_Mn.setForeground(UIManager.getColor("Button.background"));
+		btnNewButton_Mn.setBackground(new Color(66, 66, 66));
+		btnNewButton_Mn.setBounds(174, 178, 46, 27);
+		btnNewButton_Mn.addActionListener(this);
+		panel.add(btnNewButton_Mn);
+
+		
+		 btnNewButton_Ml= new JButton("*");
+		btnNewButton_Ml.setMargin(new Insets(0, 0, 0, 0));
+		btnNewButton_Ml.setForeground(UIManager.getColor("Button.background"));
+		btnNewButton_Ml.setBackground(new Color(66, 66, 66));
+		btnNewButton_Ml.setBounds(174, 139, 46, 27);
+		btnNewButton_Ml.addActionListener(this);
+		panel.add(btnNewButton_Ml);
+		
+
+		btnNewButton_Di = new JButton("/");
+		btnNewButton_Di.setMargin(new Insets(0, 0, 0, 0));
+		btnNewButton_Di.setForeground(UIManager.getColor("Button.background"));
+		btnNewButton_Di.setBackground(new Color(66, 66, 66));
+		btnNewButton_Di.setBounds(174, 100, 46, 27);
+		btnNewButton_Di.addActionListener(this);
+		panel.add(btnNewButton_Di);
+		btnNewButton_Eq = new JButton("=");
+		btnNewButton_Eq.addActionListener(this);
+		btnNewButton_Eq.setMargin(new Insets(0, 0, 0, 0));
+		btnNewButton_Eq.setForeground(UIManager.getColor("Button.background"));
+		btnNewButton_Eq.setBackground(new Color(66, 66, 66));
+		btnNewButton_Eq.setBounds(230, 178, 46, 66);
+		panel.add(btnNewButton_Eq);
+		
+		btnNewButton_Sq = new JButton("sqrt");
+		btnNewButton_Sq.setMargin(new Insets(0, 0, 0, 0));
+		btnNewButton_Sq.setForeground(UIManager.getColor("Button.background"));
+		btnNewButton_Sq.setBackground(new Color(66, 66, 66));
+		btnNewButton_Sq.setBounds(232, 139, 46, 27);
+		btnNewButton_Sq.addActionListener(this);
+		panel.add(btnNewButton_Sq);
+		
+		btnNewButton_Rt = new JButton("root");
+		btnNewButton_Rt.setMargin(new Insets(0, 0, 0, 0));
+		btnNewButton_Rt.setForeground(UIManager.getColor("Button.background"));
+		btnNewButton_Rt.setBackground(new Color(66, 66, 66));
+		btnNewButton_Rt.setBounds(230, 100, 46, 27);
+		btnNewButton_Rt.addActionListener(this);
+		panel.add(btnNewButton_Rt);
+		
+		btnNewButton_Ln = new JButton("ln");
+		btnNewButton_Ln.addActionListener(this);
+		btnNewButton_Ln.setMargin(new Insets(0, 0, 0, 0));
+		btnNewButton_Ln.setForeground(UIManager.getColor("Button.background"));
+		btnNewButton_Ln.setBackground(new Color(66, 66, 66));
+		btnNewButton_Ln.setBounds(230, 60, 46, 27);
+		panel.add(btnNewButton_Ln);
+		
+		btnNewButton_Ex = new JButton("exp");
+		btnNewButton_Ex.setMargin(new Insets(0, 0, 0, 0));
+		btnNewButton_Ex.setForeground(UIManager.getColor("Button.background"));
+		btnNewButton_Ex.setBackground(new Color(66, 66, 66));
+		btnNewButton_Ex.setBounds(174, 60, 46, 27);
+		btnNewButton_Ex.addActionListener(this);
+		panel.add(btnNewButton_Ex);
+		
+		btnNewButton_Dl = new JButton("del");
+		btnNewButton_Dl.setMargin(new Insets(0, 0, 0, 0));
+		btnNewButton_Dl.setForeground(UIManager.getColor("Button.background"));
+		btnNewButton_Dl.setBackground(new Color(66, 66, 66));
+		btnNewButton_Dl.setBounds(230, 21, 46, 27);
+		btnNewButton_Dl.addActionListener(this);
+		panel.add(btnNewButton_Dl);
+		
+		btnNewButton_Ac = new JButton("AC");
+		btnNewButton_Ac.setMargin(new Insets(0, 0, 0, 0));
+		btnNewButton_Ac.setForeground(UIManager.getColor("Button.background"));
+		btnNewButton_Ac.setBackground(new Color(66, 66, 66));
+		btnNewButton_Ac.setBounds(174, 21, 46, 27);
+		btnNewButton_Ac.addActionListener(this);
+		panel.add(btnNewButton_Ac);
+
+	}
+	public void createTheTextField() {
+		//Setting up the result text field 	
+		textField = new JTextField();
+		textField.setMargin(new Insets(0, 20, 0, 0));
+		textField.setBorder(null);
+		textField.setHorizontalAlignment(SwingConstants.RIGHT);
+		textField.setFont(new Font("Dialog", Font.BOLD, 26));
+		textField.setBounds(12, 12, 276, 50);
+		textField.setColumns(10);
+		this.getContentPane().add(textField);
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		for(int i=0;i<10;i++) {
-			if(e.getSource()==this.Nbuttons[i]) {
-				System.out.println(i);
-				//String curText = this.field.getText();
-				
-				if(this.Operation==null ) {
-				//this.firstInpStr+=i;
-			//	this.firstInp=Float.parseFloat(this.firstInpStr);
-				
-				this.firstInpStr=this.field.getText().concat(Integer.toString(i));
-				System.out.println(this.firstInpStr);
-				this.field.setText(this.firstInpStr);
-				}else {
-					//this.SecInpStr+=Integer.toString(i);
-					//curText+=Integer.toString(i);
-					this.SecInpStr=this.SecInpStr.concat(Integer.toString(i));
-					System.out.println(this.SecInpStr);
-					//this.SecInp=Float.parseFloat(this.SecInpStr);
-					this.field.setText(this.field.getText().concat(this.SecInpStr));
-
-				}
+		//looping throw the numbers buttons and handling the event 
+		for(int i=0 ;i<10;i++) {
+			if(e.getSource()==Nbuttons[i]) {
+				System.out.println(Nbuttons[i].getText());
+				this.textField.setText(this.textField.getText().concat(Integer.toString(i)));
 			}
 		}
-		if(e.getSource()==Nbuttons[11]) {
-		String res = Float.toString(calculate());
-		System.out.println(res);
-		this.field.setText(res);
-		}
-		if(e.getSource()==this.OPButtons[0]) {
-			System.out.println("clear");
-			this.firstInp=0;
-			this.SecInp=0;
-			this.firstInpStr="";
-			this.SecInpStr="";
-			this.Operation=null;
-			this.field.setText("");
-		}
-		if(e.getSource()==this.OPButtons[1]) {
-			System.out.println("div");
-			this.Operation="div";
-			String curText = this.field.getText();
-			curText +="/";
-			this.field.setText(curText);
-		}
-		if(e.getSource()==this.OPButtons[2]) {
-			System.out.println("mul");
-			this.Operation="mul";
-			
-			String curText = this.field.getText();
-			curText +="*";
-			this.field.setText(curText);
-		}
-		
-		
-		if(e.getSource()==Nbuttons[10]) {
-				this.field.setText(this.field.getText().concat("."));
+		//handling . button
+		if(e.getSource()==btnNewButton_P) {
+			if(!this.textField.getText().contains("."))this.textField.setText(this.textField.getText().concat("."));
 
 		}
-		if(e.getSource()==this.OPButtons[3]) {
-			System.out.println("add");
-			this.Operation="add";
+		
+		//handling operations
+		//handling (-/+)
+		if(e.getSource()==btnNewButton_Po_Ni) {
+			if(this.textField.getText().charAt(0)!='-')this.textField.setText("-"+this.textField.getText());
+			else this.textField.setText(this.textField.getText().substring(1));
+		}
+		//+
+		if(e.getSource()==btnNewButton_Pl) {
+			this.operation="pl";
+			this.firInp = Float.parseFloat(this.textField.getText());
+			System.out.println(this.firInp);
+			this.textField.setText("");
+		}
+		
+		//-
+		if(e.getSource()==btnNewButton_Mn) {
+			this.operation="mn";
+			this.operation="pl";
+			this.firInp = Float.parseFloat(this.textField.getText());
+			System.out.println(this.firInp);
+			this.textField.setText("");
+		}
+		//*
+		if(e.getSource()==btnNewButton_Ml) {
+			this.operation="ml";
+			this.firInp = Float.parseFloat(this.textField.getText());
+			System.out.println(this.firInp);
+			this.textField.setText("");
+		}
+		// / (division)
+		if(e.getSource()==btnNewButton_Di) {
+			this.operation="di";
+			this.firInp = Float.parseFloat(this.textField.getText());
+			System.out.println(this.firInp);
+			this.textField.setText("");		
+			}
+		//handling special function (exp ln root sqrt);
+
+	//Sqrt 
+		if(e.getSource()==btnNewButton_Rt) {
+			System.out.println("you pressed sqrt");
+			this.firInp = Float.parseFloat(this.textField.getText());
+			this.textField.setText("Sqrt("+this.textField.getText()+")");
+			this.operation="sqrt";
+					
+		}
+		//Sq
+		if(e.getSource()==btnNewButton_Sq) {
+			this.firInp = Float.parseFloat(this.textField.getText());
+			this.textField.setText(this.textField.getText()+"^2");
+			this.operation="sq";
+					
+		}
+		if(e.getSource()==btnNewButton_Ln) {
+			this.firInp = Float.parseFloat(this.textField.getText());
+			this.textField.setText("Ln("+this.textField.getText()+")");
+			this.operation="ln";
+					
+		}
+		if(e.getSource()==btnNewButton_Ex) {
+			this.firInp = Float.parseFloat(this.textField.getText());
+			this.textField.setText("exp("+this.textField.getText()+")");
+			this.operation="exp";
+					
+		}
+		//start handling calculation 
+		
+		if(e.getSource()==btnNewButton_Eq) {
+			System.out.println("operation = "+this.operation);
+			//if the use pressed number1 + (=) the result will be the number1 with out any calculation
+			if(this.operation==null) {
+				System.out.println("first");
+				this.firInp=Float.parseFloat(this.textField.getText());
+				this.textField.setText(Float.toString(this.firInp));
+				return ;
+			}
+			//special math functions exp root ln ..
+			//sqrt
+			if(this.operation.equals("sqrt")) {
+				float res = (float) Math.sqrt(this.firInp);
+				this.textField.setText(Float.toString(res));
+				this.firInp=res ;
+				return ;
 			
-			String curText = this.field.getText();
-			curText +="+";
-			this.field.setText(curText);
-		}
-		
-		if(e.getSource()==this.OPButtons[4]) {
-			System.out.println("sub");
-			this.Operation="sub";
+			}
+			//sq
+			if(this.operation.equals("sq")) {
+				float res = this.firInp*this.firInp;
+				this.textField.setText(Float.toString(res));
+				this.firInp=res ;
+				return ;
 			
-			String curText = this.field.getText();
-			curText +="-";
-			this.field.setText(curText);
+			}
+			//exp
+			if(this.operation.equals("exp")) {
+				float res = (float) Math.exp(this.firInp);
+				this.textField.setText(Float.toString(res));
+				this.firInp=res ;
+				return ;
+			
+			}
+			//ln
+			if(this.operation.equals("ln")) {
+				float res = (float) Math.log(this.firInp);
+				this.textField.setText(Float.toString(res));
+				this.firInp=res ;
+				return ;
+			
+			}
+			
+			//getting the second number from the input field 
+	
+			this.secInput= Float.parseFloat(this.textField.getText());
+			System.out.println(this.secInput);
+			float res =0f; 
+			if(this.operation.equals("pl")) {
+				res = this.firInp+this.secInput;
+			}else if(this.operation.equals("mn")) {
+				res = this.firInp-this.secInput;
+
+			}else if(this.operation.equals("ml")) {
+				res = this.firInp*this.secInput;
+
+			}else if(this.operation.equals("di")) {
+				res = this.firInp/this.secInput;
+
+			}
+			
+			//putting the res in the result field 
+			this.textField.setText(Float.toString(res));
+			//clearing the second input and setting the result to the first number
+			this.firInp=res;
+			this.secInput=0f;
+			
 		}
-		if(e.getSource()==this.OPButtons[5]) {
-			System.out.println("exp");
-			this.Operation="exp";
-			String curText = this.field.getText();
-			this.firstInpStr=this.field.getText();
-			curText ="exp("+this.field.getText()+")";
-			this.field.setText(curText);
+
+		//clearing  the result text field
+		if(e.getSource()==btnNewButton_Ac) {
+			this.firInp=0f;
+			this.secInput=0f;
+			this.operation=null;
+			this.textField.setText("");
 		}
-		
-		if(e.getSource()==this.OPButtons[6]) {
-			System.out.println("ln");
-			this.Operation="ln";
-			String curText = this.field.getText();
-			this.firstInpStr=this.field.getText();
-			curText ="ln("+this.field.getText()+")";
-			this.field.setText(curText);
-		}
-		
-		if(e.getSource()==this.OPButtons[7]) {
-			System.out.println("root");
-			this.Operation="root";
-			String curText = this.field.getText();
-			this.firstInpStr=this.field.getText();
-			curText ="root("+this.field.getText()+")";
-			this.field.setText(curText);
+		//deleting the last digit from 
+		if(e.getSource()==btnNewButton_Dl) {
+			int inputLength = this.textField.getText().length();
+			if(inputLength>0)this.textField.setText(this.textField.getText().substring(0, inputLength-1));
+			//if(inputLength==1)this.textField.setText("0");
+
 		}
 		
 	}
-	private float calculate() {
-		System.out.println(this.Operation);
-		if(!this.firstInpStr.equals(""))this.firstInp=Float.parseFloat(this.firstInpStr);
-		if(!this.SecInpStr.equals(""))this.SecInp=Float.parseFloat(this.SecInpStr);
-		float res = 0;
-		if(this.Operation.equals("div")) {
-			res = this.firstInp/this.SecInp;
-		}
-		if(this.Operation.equals("mul")) {
-			res = this.firstInp*this.SecInp;
-		}
-		
-		if(this.Operation.equals("add")) {
-			res = this.firstInp + this.SecInp;
-		}
-		
-		if(this.Operation.equals("sub")) {
-			res = this.firstInp-this.SecInp;
-		}
-		if(this.Operation.equals("exp")) {
-			System.out.println("start exp -----------");
-				this.firstInp = Float.parseFloat(this.firstInpStr);
-				res = (float) Math.exp(this.firstInp);
-			
-			
-		}
-		if(this.Operation.equals("ln")) {
-			System.out.println("start ln -----------");
-				this.firstInp = Float.parseFloat(this.firstInpStr);
-				res = (float) Math.log(this.firstInp);
-			
-			
-			
-		}
-		if(this.Operation.equals("root")) {
-			System.out.println("start root -----------");
-				this.firstInp = Float.parseFloat(this.firstInpStr);
-				res = (float) Math.sqrt(this.firstInp);
-			
-			
-			
-		}
-		this.firstInpStr=Float.toString(res);
-		this.firstInp=res;
-		this.SecInp=0f;
-		this.Operation=null;
-		this.SecInpStr="";
-		this.firstInpStr="";
-		return res;
-	}
-
 }
