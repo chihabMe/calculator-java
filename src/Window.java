@@ -60,7 +60,6 @@ public class Window extends JFrame  implements ActionListener  {
 		this.getContentPane().setBackground(new Color(44, 44, 44)	);
 		this.setBackground(new Color(44, 44, 44)	);
 		this.setResizable(false);
-		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 		this.getContentPane().setLayout(null);
 		this.setBounds(100, 100, 300, 350);
@@ -263,100 +262,8 @@ public class Window extends JFrame  implements ActionListener  {
 		this.getContentPane().add(textField);
 
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		//looping throw the numbers buttons and handling the event 
-		for(int i=0 ;i<10;i++) {
-			if(e.getSource()==Nbuttons[i]) {
-				System.out.println(Nbuttons[i].getText());
-				this.textField.setText(this.textField.getText().concat(Integer.toString(i)));
-			}
-		}
-		//handling . button
-		if(e.getSource()==btnNewButton_P) {
-			if(!this.textField.getText().contains("."))this.textField.setText(this.textField.getText().concat("."));
-
-		}
+	private void doCalculation() {
 		
-		//handling operations
-		//handling (-/+)
-		if(e.getSource()==btnNewButton_Po_Ni) {
-			if(this.textField.getText().charAt(0)!='-')this.textField.setText("-"+this.textField.getText());
-			else this.textField.setText(this.textField.getText().substring(1));
-		}
-		//+
-		if(e.getSource()==btnNewButton_Pl) {
-			this.operation="pl";
-			this.firInp = Float.parseFloat(this.textField.getText());
-			System.out.println(this.firInp);
-			this.textField.setText("");
-		}
-		
-		//-
-		if(e.getSource()==btnNewButton_Mn) {
-			this.operation="mn";
-			this.operation="pl";
-			this.firInp = Float.parseFloat(this.textField.getText());
-			System.out.println(this.firInp);
-			this.textField.setText("");
-		}
-		//*
-		if(e.getSource()==btnNewButton_Ml) {
-			this.operation="ml";
-			this.firInp = Float.parseFloat(this.textField.getText());
-			System.out.println(this.firInp);
-			this.textField.setText("");
-		}
-		// / (division)
-		if(e.getSource()==btnNewButton_Di) {
-			this.operation="di";
-			this.firInp = Float.parseFloat(this.textField.getText());
-			System.out.println(this.firInp);
-			this.textField.setText("");		
-			}
-		//handling special function (exp ln root sqrt);
-
-	//Sqrt 
-		if(e.getSource()==btnNewButton_Rt) {
-			System.out.println("you pressed sqrt");
-			this.firInp = Float.parseFloat(this.textField.getText());
-			this.textField.setText("Sqrt("+this.textField.getText()+")");
-			this.operation="sqrt";
-					
-		}
-		//Sq
-		if(e.getSource()==btnNewButton_Sq) {
-			this.firInp = Float.parseFloat(this.textField.getText());
-			this.textField.setText(this.textField.getText()+"^2");
-			this.operation="sq";
-					
-		}
-		if(e.getSource()==btnNewButton_Ln) {
-			this.firInp = Float.parseFloat(this.textField.getText());
-			this.textField.setText("Ln("+this.textField.getText()+")");
-			this.operation="ln";
-					
-		}
-		if(e.getSource()==btnNewButton_Ex) {
-			this.firInp = Float.parseFloat(this.textField.getText());
-			this.textField.setText("exp("+this.textField.getText()+")");
-			this.operation="exp";
-					
-		}
-		//start handling calculation 
-		
-		if(e.getSource()==btnNewButton_Eq) {
-			System.out.println("operation = "+this.operation);
-			//if the use pressed number1 + (=) the result will be the number1 with out any calculation
-			if(this.operation==null) {
-				System.out.println("first");
-				this.firInp=Float.parseFloat(this.textField.getText());
-				this.textField.setText(Float.toString(this.firInp));
-				return ;
-			}
-			//special math functions exp root ln ..
-			//sqrt
 			if(this.operation.equals("sqrt")) {
 				float res = (float) Math.sqrt(this.firInp);
 				this.textField.setText(Float.toString(res));
@@ -392,7 +299,7 @@ public class Window extends JFrame  implements ActionListener  {
 			//getting the second number from the input field 
 	
 			this.secInput= Float.parseFloat(this.textField.getText());
-			System.out.println(this.secInput);
+			
 			float res =0f; 
 			if(this.operation.equals("pl")) {
 				res = this.firInp+this.secInput;
@@ -412,6 +319,123 @@ public class Window extends JFrame  implements ActionListener  {
 			//clearing the second input and setting the result to the first number
 			this.firInp=res;
 			this.secInput=0f;
+			
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		//looping throw the numbers buttons and handling the event 
+		for(int i=0 ;i<10;i++) {
+			if(e.getSource()==Nbuttons[i]) {
+				System.out.println(Nbuttons[i].getText());
+				this.textField.setText(this.textField.getText().concat(Integer.toString(i)));
+			}
+		}
+		//handling . button
+		if(e.getSource()==btnNewButton_P) {
+			if(this.textField.getText().equals("")) {
+				if(!this.textField.getText().contains("."))this.textField.setText("0".concat("."));
+
+			} else {
+			if(!this.textField.getText().contains("."))this.textField.setText(this.textField.getText().concat("."));
+			}
+		}
+		
+		//handling operations
+		//handling (-/+)
+		if(e.getSource()==btnNewButton_Po_Ni) {
+			if(this.textField.getText().equals(""))return ;
+
+			if(this.textField.getText().charAt(0)!='-')this.textField.setText("-"+this.textField.getText());
+			else this.textField.setText(this.textField.getText().substring(1));
+		}
+		//+
+		if(e.getSource()==btnNewButton_Pl) {
+			if(this.textField.getText().equals(""))return ;
+			this.operation="pl";
+			this.firInp = Float.parseFloat(this.textField.getText());
+			
+			this.textField.setText("");
+		}
+		
+		//-
+		if(e.getSource()==btnNewButton_Mn) {
+			if(this.textField.getText().equals(""))return ;
+
+			this.operation="mn";
+			this.firInp = Float.parseFloat(this.textField.getText());
+			
+			this.textField.setText("");
+		}
+		//*
+		if(e.getSource()==btnNewButton_Ml) {
+			if(this.textField.getText().equals(""))return ;
+
+			this.operation="ml";
+			this.firInp = Float.parseFloat(this.textField.getText());
+			
+			this.textField.setText("");
+		}
+		// / (division)
+		if(e.getSource()==btnNewButton_Di) {
+			if(this.textField.getText().equals(""))return ;
+
+			this.operation="di";
+			this.firInp = Float.parseFloat(this.textField.getText());
+			
+			this.textField.setText("");		
+			}
+		//handling special function (exp ln root sqrt);
+
+	//Sqrt 
+		if(e.getSource()==btnNewButton_Rt) {
+			if(this.textField.getText().equals(""))return ;
+
+			this.firInp = Float.parseFloat(this.textField.getText());
+			this.textField.setText("Sqrt("+this.textField.getText()+")");
+			this.operation="sqrt";
+					
+		}
+		//Sq
+		if(e.getSource()==btnNewButton_Sq) {
+			if(this.textField.getText().equals(""))return ;
+
+			this.firInp = Float.parseFloat(this.textField.getText());
+			this.textField.setText(this.textField.getText()+"^2");
+			this.operation="sq";
+					
+		}
+		if(e.getSource()==btnNewButton_Ln) {
+			if(this.textField.getText().equals(""))return ;
+
+			this.firInp = Float.parseFloat(this.textField.getText());
+			this.textField.setText("Ln("+this.textField.getText()+")");
+			this.operation="ln";
+					
+		}
+		
+		if(e.getSource()==btnNewButton_Ex) {
+			if(this.textField.getText().equals(""))return ;
+
+			this.firInp = Float.parseFloat(this.textField.getText());
+			this.textField.setText("exp("+this.textField.getText()+")");
+			this.operation="exp";
+					
+		}
+		//start handling calculation 
+		
+		if(e.getSource()==btnNewButton_Eq) {
+			if(this.textField.getText().equals(""))return ;
+
+			//if the use pressed number1 + (=) the result will be the number1 with out any calculation
+			if(this.operation==null) {
+				
+				this.firInp=Float.parseFloat(this.textField.getText());
+				this.textField.setText(Float.toString(this.firInp));
+				return ;
+			}
+			//special math functions exp root ln ..
+			//sqrt
+			this.doCalculation();
 			
 		}
 

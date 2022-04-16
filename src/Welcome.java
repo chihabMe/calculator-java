@@ -18,6 +18,7 @@ public class Welcome  implements ActionListener{
  JLabel linux = new JLabel();
  Welcome(){
 	 window.setSize(300,350);
+	 window.setLocationRelativeTo(null);
 	 window.setIconImage(linuxIcon.getImage());
 	 window.setResizable(false);
 	 window.setLayout(null);
